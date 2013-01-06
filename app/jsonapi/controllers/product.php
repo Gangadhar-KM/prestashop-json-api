@@ -1,11 +1,11 @@
 <?php
 
-namespace JSONApi\Models;
+namespace JSONApi\Controllers;
 
 class Product {
 	function get() {
 		$id_product = 1;
 		$product = new Product($id_product);
-		die(json_encode($product));
+		die(msgpack_pack($product));
 	}
 }
