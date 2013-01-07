@@ -103,7 +103,7 @@ class SQL extends \PDO {
 			$args=array($args);
 		}
 		$fw=\Base::instance();
-		$cache=\Cache::instance();
+		$cache=\F3Cache::instance();
 		foreach (array_combine($cmds,$args) as $cmd=>$arg) {
 			$keys=$vals=array();
 			if ($fw->get('CACHE') && $ttl && ($cached=$cache->exists(

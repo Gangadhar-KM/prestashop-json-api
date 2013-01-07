@@ -40,7 +40,7 @@ class Session {
 		@param $id string
 	**/
 	function read($id) {
-		return Cache::instance()->exists($id.'.@',$data)?$data['data']:FALSE;
+		return F3Cache::instance()->exists($id.'.@',$data)?$data['data']:FALSE;
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Session {
 		$fw=Base::instance();
 		$headers=$fw->get('HEADERS');
 		$jar=session_get_cookie_params();
-		Cache::instance()->set($id.'.@',
+		F3Cache::instance()->set($id.'.@',
 			array(
 				'data'=>$data,
 				'ip'=>$fw->get('IP'),
@@ -72,7 +72,7 @@ class Session {
 		@param $id string
 	**/
 	function destroy($id) {
-		Cache::instance()->clear($id.'.@');
+		F3Cache::instance()->clear($id.'.@');
 		return TRUE;
 	}
 
@@ -82,7 +82,7 @@ class Session {
 		@param $max int
 	**/
 	function cleanup($max) {
-		Cache::instance()->reset('.@',$max);
+		F3Cache::instance()->reset('.@',$max);
 		return TRUE;
 	}
 
@@ -92,7 +92,7 @@ class Session {
 		@param $id string
 	**/
 	function ip($id=NULL) {
-		return Cache::instance()->exists(($id?:session_id()).'.@',$data)?
+		return F3Cache::instance()->exists(($id?:session_id()).'.@',$data)?
 			$data['ip']:FALSE;
 	}
 
@@ -102,7 +102,7 @@ class Session {
 		@param $id string
 	**/
 	function stamp($id=NULL) {
-		return Cache::instance()->exists(($id?:session_id()).'.@',$data)?
+		return F3Cache::instance()->exists(($id?:session_id()).'.@',$data)?
 			$data['stamp']:FALSE;
 	}
 
@@ -112,7 +112,7 @@ class Session {
 		@param $id string
 	**/
 	function agent($id=NULL) {
-		return Cache::instance()->exists(($id?:session_id()).'.@',$data)?
+		return F3Cache::instance()->exists(($id?:session_id()).'.@',$data)?
 			$data['agent']:FALSE;
 	}
 

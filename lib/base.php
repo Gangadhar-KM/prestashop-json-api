@@ -169,7 +169,7 @@ final class Base {
 	**/
 	function exists($key) {
 		$ref=&$this->ref($key,FALSE);
-		return isset($ref)?TRUE:Cache::instance()->exists($this->hash($key));
+		return isset($ref)?TRUE:F3Cache::instance()->exists($this->hash($key));
 	}
 
 
@@ -191,7 +191,7 @@ final class Base {
 		}
 		else switch ($key) {
 			case 'CACHE':
-				$val=Cache::instance()->load($val);
+				$val=F3Cache::instance()->load($val);
 				break;
 			case 'ENCODING':
 				$val=ini_set('default_charset',$val);
@@ -234,7 +234,7 @@ final class Base {
 		$ref=$val;
 		if ($ttl)
 			// Persist the key-value pair
-			Cache::instance()->set($this->hash($key),$val);
+			F3Cache::instance()->set($this->hash($key),$val);
 		return $ref;
 	}
 
@@ -249,7 +249,7 @@ final class Base {
 			return $this->format($val,$args);
 		if (is_null($val)) {
 			// Attempt to retrieve from cache
-			if (Cache::instance()->exists($this->hash($key),$data))
+			if (F3Cache::instance()->exists($this->hash($key),$data))
 				return $data;
 		}
 		return $val;
@@ -262,7 +262,7 @@ final class Base {
 	**/
 	function clear($key) {
 		// Normalize array literal
-		$cache=Cache::instance();
+		$cache=F3Cache::instance();
 		$parts=$this->cut($key);
 		if ($parts[0]=='CACHE')
 			// Clear cache contents
@@ -980,7 +980,7 @@ final class Base {
 					isset($ttl)) {
 					// Only GET and HEAD requests are cacheable
 					$headers=$this->hive['HEADERS'];
-					$cache=Cache::instance();
+					$cache=F3Cache::instance();
 					$cached=$cache->exists(
 						$hash=$this->hash($this->hive['VERB'].' '.
 							$this->hive['URI']).'.url',$data);
@@ -1453,7 +1453,7 @@ final class Base {
 }
 
 //! Cache engine
-final class Cache {
+final class F3Cache {
 
 	private
 		//! Cache DSN

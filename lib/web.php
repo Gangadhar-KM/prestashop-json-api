@@ -211,7 +211,7 @@ class Web extends Prefab {
 		$eol="\r\n";
 		if ($fw->get('CACHE') &&
 			preg_match('/GET|HEAD/',$options['method'])) {
-			$cache=Cache::instance();
+			$cache=F3Cache::instance();
 			if ($cache->exists(
 				$hash=$fw->hash($options['method'].' '.$url).'.url',$data)) {
 				if (preg_match('/Last-Modified:\s(.+?)'.preg_quote($eol).'/',
