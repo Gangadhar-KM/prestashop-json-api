@@ -19,6 +19,7 @@ $f3->route('GET /', function() {
 // Router
 $f3->map('/cms/@id_cms', 'JSONApi\Controllers\CmsController');
 $f3->map('/product/@id_product'	, 'JSONApiProductController');
+$f3->map('/category/@id_category/@page'	, 'JSONApiCategoryController');
 $f3->route('GET /product/latest', 'JSONApi\Controllers\ProductController->getLatest()');
 $f3->route('GET /product/sales', 'JSONApi\Controllers\ProductController->getSales()');
 $f3->route('GET /search/@term', 'JSONApi\Controllers\SearchController->find()');
