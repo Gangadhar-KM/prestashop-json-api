@@ -12,26 +12,27 @@ class PrestashopJsonApi extends FrontController {
 		$this->context = Context::getContext();
 	}
 
-	// Initialization
 	public function initContent() {
+		// Initialization
 		parent::initContent();
-		$this->f3->set('AUTOLOAD','app/controllers/');
+		$this->f3->set('AUTOLOAD', 'app/controllers/; app/models/');
 
 		$this->f3->route('GET /', function() {
-			die(msgpack_pack('Prestashop JSON API'));
+			die(Tools::jsonEncode('Prestashop JSON API'));
 		});
 
 		// Router
-		$this->f3->map('/cms/@id_cms', 'JSONApi\Controllers\CmsController');
+		$this->f3->map('/cms/@id_cms', 'JSONApiCmsController');
 		$this->f3->map('/product/@id_product', 'JSONApiProductController');
 		$this->f3->map('/category/@id_category/@page', 'JSONApiCategoryController');
-		$this->f3->route('GET /product/latest', 'JSONApi\Controllers\ProductController->getLatest()');
-		$this->f3->route('GET /product/sales', 'JSONApi\Controllers\ProductController->getSales()');
-		$this->f3->route('GET /search/@term', 'JSONApi\Controllers\SearchController->find()');
+		$this->f3->route('GET /product/latest', 'JSONApiProductController->getLatest');
+		$this->f3->route('GET /product/sales', 'JSONApiProductController->getSales');
+		$this->f3->route('GET /category/all', 'JSONApiCategoryController->getAll');
+		$this->f3->route('GET /search/@term', 'JSONApiSearchController->find');
 	}
 
-	// Run!
 	public function run() {
+		// Run!
 		$this->f3->run();
 	}
 }
